@@ -8,24 +8,23 @@ import Races from '../races/Races';
 class Details extends React.Component {
     constructor(props) {
       super(props);
-      this.hordeClick = this.handleHordeClick.bind(this);
-      this.alyClick = this.handleAlyClick.bind(this);
+      this.hordeClick = this.handleClick.bind(this);
       this.state = {
           faction: ""
       };
     }
   
-    handleHordeClick() {
+    handleClick(faction) {
       //Exemplo de requisisão
-      axios.get(`http://localhost:3001/horde`)
+      axios.get(`http://localhost:3001/loadDatabase`, {
+        params: {
+          faction: faction
+        }
+      })
       .then(res => {
         const faction = res.data;
         this.setState({ faction });
       })
-    }
-  
-    handleAlyClick() {
-      this.setState({faction: "alliance"});
     }
   
     render() {

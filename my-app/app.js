@@ -19,10 +19,17 @@ var con = mysql.createConnection({
 /* 
 Exemplo de requisição do tipo get
 */
-app.get('/alliance', function (req, res) {
+app.get('/loadDatabase', function (req, res) {
+  let faction = req.query.faction
+
   con.connect(function(err) {
     if (err) throw err;
-    con.query("SELECT * FROM ALLIANCE", function (err, result, fields) {
+    con.query("SELECT * FROM FACTION WHERE FACTION=" + faction + ";" +
+    "SELECT * FROM Races" +
+    "WHERE Faccao='Horda';"
+    
+    
+    , function (err, result, fields) {
       if (err) throw err;
           console.log(result);
           res.send(result)
@@ -56,3 +63,18 @@ app.get('/horde', function (req, res) {
 })
  
 app.listen(3001) // Porta que a API responde
+
+/** 
+ * 
+SELECT * FROM Races
+WHERE Faccao='Horda';
+
+- Vulpera
+
+SELECT * FROM Classes
+WHERE Race='Vulpera';
+
+- []
+
+
+*/
