@@ -11,31 +11,38 @@ app.use(cors()) // Inicialização do CORS
 */ 
 var con = mysql.createConnection({
   host: "localhost",
-  user: "yourusername",
-  password: "yourpassword",
-  database: "mydb"
+  user: "root",
+  password: "root",
+  database: "wow"
 });
 
 /* 
 Exemplo de requisição do tipo get
 */
-app.get('/loadDatabase', function (req, res) {
+app.get('/loadFactionRaces', function (req, res) {
   let faction = req.query.faction
 
-  con.connect(function(err) {
-    if (err) throw err;
-    con.query("SELECT * FROM FACTION WHERE FACTION=" + faction + ";" +
-    "SELECT * FROM Races" +
-    "WHERE Faccao='Horda';"
-    
-    
+    con.query("SELECT Races as race, id_races FROM races AS r WHERE r.ID_Faction=" + faction + ";"    
     , function (err, result, fields) {
       if (err) throw err;
           console.log(result);
-          res.send(result)
+          res.json(result)
     });
-  });
+    
 })
+
+// SELECT c.class_name FROM class_race AS cr, class AS c WHERE c.id_class = cr.id_class AND cr.id_race=1;
+app.get('/loadRaceClass', function (req, res) {
+  let race = req.query.race
+    con.query("SELECT c.class_name FROM class_race AS cr, class AS c WHERE c.id_class = cr.id_class AND cr.id_race=" + race + ";"    
+    , function (err, result, fields) {
+      if (err) throw err;
+          console.log(result);
+          res.json(result)
+    });
+    
+})
+
 
 /*
 Requisisão de Teste

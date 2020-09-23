@@ -1,20 +1,40 @@
 import React from 'react';
+import axios from 'axios';
 import './Races.css';
 import Classes from '../classes/Classes'
 
 class Races extends React.Component {
     constructor(props) {
       super(props);
-      console.log(this.props.database)
       this.raceClick = this.handleRaceClick.bind(this);
-
+      this.getClasses = this.getClasses.bind(this)
       this.state = {
-          selectedRace: ""
+          selectedRace: "",
+          index: "",
+          class: []
       };
     }
 
-    handleRaceClick(race) {
-        this.setState({selectedRace: race});
+    getClasses(race_id) {
+      axios.get(`http://localhost:3001/loadRaceClass`, {
+        params: {
+          race: race_id + 1
+        }
+      })
+      .then((res) => {
+        const loadedClasses = res.data;
+        console.log(loadedClasses)
+        this.setState({ class: loadedClasses });
+      })
+    }
+
+    handleRaceClick(race, index) {
+        this.getClasses(index)
+        this.setState({
+          selectedRace: race,
+          index: index
+        });
+        console.log(this.state)
     }
 
     render() {
@@ -23,7 +43,7 @@ class Races extends React.Component {
       let content;
 
       if (race != "") {
-        content = <Classes race={race} class={this.props.database.classes}/>;
+        content = <Classes class={this.state.class}/>;
       }
       
       // const faction = this.props.faction.faction
@@ -37,9 +57,8 @@ class Races extends React.Component {
       // for (const [index, value] of races[faction].entries()) {
       //   items.push(<button key={index} onClick={() => this.handleRaceClick(value)}>{value}</button>)
       // }
-
-      for (const [index, value] of this.props.database.races.entries()) {
-        items.push(<button key={index} onClick={() => this.handleRaceClick(value)}>{value}</button>)
+      for (const [index, value] of this.props.database.entries()) {
+        items.push(<button key={index} onClick={() => this.handleRaceClick(value.race, index)}>{value.race}</button>)
       }
 
       return (
