@@ -1,0 +1,31 @@
+.leftContainer {
+    width: 50%;
+    display: flex;
+    float: left;
+    background-color: crimson;
+    height: 100vh;
+}
+
+.rightContainer {
+    width: 50%;
+    float: right;
+    display: flex;
+    background-color: cyan;
+    height: 100vh;
+}
+
+.triangle-topleft {
+    width: 0;
+    height: 0;
+    border-top: 50vh solid crimson;
+    border-right: 49.5vw solid transparent;
+    float: left;
+  }
+
+  .triangle-topright {
+    width: 0;
+    height: 0;
+    border-top: 50vh solid cyan;
+    border-left: 49.5vw solid transparent;
+    float: right;
+  }

@@ -1,0 +1,29 @@
+.racesContainer {
+    width: 100vw;
+    background-color: powderblue;
+    height: 25vw;
+}
+
+button {
+    width: 7.5vw;
+    height: 7.5vW;
+    border-radius: 4.5vw;
+    background-color: white;
+    float: left;
+    display: flex;
+    margin-left: 5%;
+    margin-top: 4%;
+}
+
+.firstLine {
+    width: 80vw;
+    background-color: powderblue;
+    margin-left: 15%;
+}
+
+.secondLine {
+    width: 80vw;
+    background-color: powderblue;
+    margin-left: 10%;
+}
+
