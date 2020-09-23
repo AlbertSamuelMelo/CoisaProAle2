@@ -5,31 +5,40 @@ import Classes from '../classes/Classes'
 class Races extends React.Component {
     constructor(props) {
       super(props);
-      console.log(this.props.faction)
+      console.log(this.props.database)
       this.raceClick = this.handleRaceClick.bind(this);
+
       this.state = {
           selectedRace: ""
       };
     }
+
     handleRaceClick(race) {
         this.setState({selectedRace: race});
     }
 
     render() {
+
       const race = this.state.selectedRace;
       let content;
+
       if (race != "") {
-        content = <Classes race={race}/>;
+        content = <Classes race={race} class={this.props.database.classes}/>;
       }
-      const faction = this.props.faction
-      const races = {
-          horde: ['Orc', 'Troll', 'Tauren', 'Undead', 'Blood Elves', 'Goblin', 'Pandarean', 'Nightborn', 'High Mountain', 'Mac-ogah', 'Zandalari', 'Vulpera'],
-          alliance: ['Human', 'Night-Elves', 'Dwraf', 'Gnome', 'Dranei', 'Worgen', 'Pandarean', 'Void Elves', 'Lightforged', 'Dark iron', 'Kultirean', 'Mechagnome']
-      };
+      
+      // const faction = this.props.faction.faction
+      // const races = {
+      //     horde: ['Orc', 'Troll', 'Tauren', 'Undead', 'Blood Elves', 'Goblin', 'Pandarean', 'Nightborn', 'High Mountain', 'Mac-ogah', 'Zandalari', 'Vulpera'],
+      //     alliance: ['Human', 'Night-Elves', 'Dwraf', 'Gnome', 'Dranei', 'Worgen', 'Pandarean', 'Void Elves', 'Lightforged', 'Dark iron', 'Kultirean', 'Mechagnome']
+      // };
 
       const items = []
     
-      for (const [index, value] of races[faction].entries()) {
+      // for (const [index, value] of races[faction].entries()) {
+      //   items.push(<button key={index} onClick={() => this.handleRaceClick(value)}>{value}</button>)
+      // }
+
+      for (const [index, value] of this.props.database.races.entries()) {
         items.push(<button key={index} onClick={() => this.handleRaceClick(value)}>{value}</button>)
       }
 

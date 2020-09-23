@@ -1,4 +1,6 @@
 import React from 'react';
+import axios from 'axios';
+
 import './Details.css';
 
 import Races from '../races/Races';
@@ -14,7 +16,12 @@ class Details extends React.Component {
     }
   
     handleHordeClick() {
-      this.setState({faction: "horde"});
+      //Exemplo de requisisão
+      axios.get(`http://localhost:3001/horde`)
+      .then(res => {
+        const faction = res.data;
+        this.setState({ faction });
+      })
     }
   
     handleAlyClick() {
@@ -22,12 +29,12 @@ class Details extends React.Component {
     }
   
     render() {
-      const faction = this.state.faction;
+
+      const database = this.state.faction;
       let content;
-      if (faction == "horde") {
-        content = <Races faction={faction}/>;
-      } else if (faction == "alliance") {
-        content = <Races faction={faction}/>;
+
+      if (database != "") {
+        content = <Races database={database}/>;
       }
   
       return (
